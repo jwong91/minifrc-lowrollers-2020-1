@@ -78,23 +78,30 @@ void drive(float xPower, float yPower) {
 void intakeControl(float power){
     // Set intake
     // 1x N20 motor
+
     setMotor(power, intakeMotor);
 }
 
-//void indexerControl(float power){
+void indexerControl(float power){
     // Set indexer
     // 1x TT motor for indexer
-//}
 
-//void shooterControl(float power){
+    setMotor(power, indexerMotor);
+}
+
+void shooterControl(float power){
     // Set shooter
     // 1x TT motor for feeder; 2x Micro motor for shooter
-//}
+    
+    setMotor(power, feederMotor);
+    setMotor(power, shooterMotorA);
+    setMotor(power, shooterMotorB);
+}
 
-//void turretControl(float power){
+// void turretControl(float power){
     // Set turret 
     // 1x TT motor; 1x KY-040 encoder; 1x SG90 servo for hood
-//}
+// }
 
 //void climbControl(float power){
     // Set climb
@@ -118,6 +125,14 @@ void loop() {
             // Run subsystems
             if (aButton){
                intakeControl(160);
+            }
+
+            if (bButton){
+                indexerControl(100);
+            }
+
+            if (xButton){
+                shooterControl(250);
             }
         }
     }
