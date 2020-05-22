@@ -9,6 +9,11 @@ tuple<int, int> motorFL (1, 2); // Change
 tuple<int, int> motorBL (3, 4); // Change
 tuple<int, int> motorFR (5, 6); // Change
 tuple<int, int> motorBR (7, 8); // Change
+tuple<int, int> intakeMotor(9, 10); // Change
+tuple<int, int> indexerMotor(11, 12); // Change
+tuple<int, int> feederMotor(13, 14); // Change
+tuple<int, int> shooterMotorA(15, 16); // Change
+tuple<int, int> shooterMotorB(17, 18); // Change
 
 float leftXAxis;
 float leftYAxis;
@@ -53,19 +58,28 @@ void setMotor(int power, tuple motor){
 		digitalWrite(pin1, LOW);	
 }
 
-//void drive(float xPower, float yPower) {
-//    xPower *= 100;
-//    yPower *= -100;
-//    float v = (100 - abs(yPower)) * (xPower/100) + xPower;
-//    float w = (100 - abs(xPower)) * (yPower/100) + yPower;
-//    float velocityL = ((((v - w) / 2) / 100) * 255);
-//    float velocityR = ((((v + w) / 2) / 100) * 255);
-//}
+void drive(float xPower, float yPower) {
+    xPower *= 100;
+    yPower *= -100;
+    float v = (100 - abs(yPower)) * (xPower/100) + xPower;
+    float w = (100 - abs(xPower)) * (yPower/100) + yPower;
+    float velocityL = ((((v - w) / 2) / 100) * 255);
+    float velocityR = ((((v + w) / 2) / 100) * 255);
 
-//void intakeControl(float power){
+// Left motors
+    setMotor(velocityL, motorFL); 
+    setMotor(velocityL, motorBL);
+
+    // Right motors
+    setMotor(velocityR, motorFR);
+    setMotor(velocityL, motorBR);
+}
+
+void intakeControl(float power){
     // Set intake
     // 1x N20 motor
-//}
+    setMotor(power, intakeMotor);
+}
 
 //void indexerControl(float power){
     // Set indexer
@@ -99,9 +113,12 @@ void loop() {
             xButton = bluetooth.parseInt();
             yButton = bluetooth.parseInt();
 
-//            drive(leftXAxis, -leftYAxis);
+//          drive(leftXAxis, -leftYAxis);
             setMotor(250, motorFR);
             // Run subsystems
+            if (aButton){
+               intakeControl(160);
+            }
         }
     }
 }
