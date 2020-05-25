@@ -14,6 +14,7 @@ tuple<int, int> indexerMotor(11, 12); // Change
 tuple<int, int> feederMotor(13, 14); // Change
 tuple<int, int> shooterMotorA(15, 16); // Change
 tuple<int, int> shooterMotorB(17, 18); // Change
+tuple<int, int> turretMotor(19, 20); // Change
 
 float leftXAxis;
 float leftYAxis;
@@ -98,10 +99,13 @@ void shooterControl(float shooterPower, float feederPower){
     setMotor(shooterPower, shooterMotorB);
 }
 
-// void turretControl(float power){
+void turretControl(float power){
     // Set turret 
     // 1x TT motor; 1x KY-040 encoder; 1x SG90 servo for hood
-// }
+
+    setMotor(power, turretMotor)
+    // set servo
+}
 
 //void climbControl(float power){
     // Set climb
@@ -133,6 +137,10 @@ void loop() {
 
             if (xButton){
                 shooterControl(250, 80);
+            }
+
+            if (yButton){
+                turretControl(50);
             }
         }
     }
