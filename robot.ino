@@ -89,13 +89,13 @@ void indexerControl(float power){
     setMotor(power, indexerMotor);
 }
 
-void shooterControl(float power){
+void shooterControl(float shooterPower, float feederPower){
     // Set shooter
     // 1x TT motor for feeder; 2x Micro motor for shooter
     
-    setMotor(power, feederMotor);
-    setMotor(power, shooterMotorA);
-    setMotor(power, shooterMotorB);
+    setMotor(feederPower, feederMotor);
+    setMotor(shooterPower, shooterMotorA);
+    setMotor(shooterPower, shooterMotorB);
 }
 
 // void turretControl(float power){
@@ -132,7 +132,7 @@ void loop() {
             }
 
             if (xButton){
-                shooterControl(250);
+                shooterControl(250, 80);
             }
         }
     }
